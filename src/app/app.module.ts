@@ -1,11 +1,14 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+// Angular
+import {BrowserModule} from '@angular/platform-browser';
+import {AppComponent} from './app.component';
+import {NgModule} from '@angular/core';
 
+// Routing
+import {routing} from './app.route';
 
-import { AppComponent } from './app.component';
-import { LichtkrantComponent } from './lichtkrant/lichtkrant.component';
-import { BlogComponent } from './blog/blog.component';
-
+// Modules
+import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
+import {BlogComponent} from './blog/blog.component';
 
 @NgModule({
   declarations: [
@@ -14,9 +17,11 @@ import { BlogComponent } from './blog/blog.component';
     BlogComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
