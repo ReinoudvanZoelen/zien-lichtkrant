@@ -1,8 +1,9 @@
-<agm-map [latitude]="51.673858" [longitude]="7.815982">
-  <agm-marker [latitude]="51.673858" [longitude]="7.815982">
-    <agm-snazzy-info-window [maxWidth]="200" [closeWhenOthersOpen]="true">
+<agm-map [latitude]="centerPositionLat" [longitude]="centerPositionLng" [zoom]="zoom">
+  <agm-marker *ngFor="let m of markers; let i = index" [latitude]=m.lat [longitude]=m.lng [label]=m.label>
+    <agm-snazzy-info-window [maxWidth]=pinPopupWidth [maxHeight]=pinPopupHeight [closeWhenOthersOpen]="true">
       <ng-template>
-        My first Snazzy Info Window!
+        <app-map-detailed-info [institutionId]=i>
+        </app-map-detailed-info>
       </ng-template>
     </agm-snazzy-info-window>
   </agm-marker>

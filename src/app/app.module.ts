@@ -6,6 +6,8 @@ import {NgModule} from '@angular/core';
 // Maps
 import {AgmCoreModule} from '@agm/core';
 import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
+import { MapComponent } from './map/map.component';
+import { MapDetailedInfoComponent } from './map-detailed-info/map-detailed-info.component';
 
 // Routing
 import {routing} from './app.route';
@@ -13,14 +15,14 @@ import {routing} from './app.route';
 // Modules
 import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
 import {BlogComponent} from './blog/blog.component';
-import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LichtkrantComponent,
     BlogComponent,
-    MapComponent
+    MapComponent,
+    MapDetailedInfoComponent
   ],
   imports: [
     BrowserModule,
