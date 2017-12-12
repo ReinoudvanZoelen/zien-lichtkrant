@@ -3,22 +3,28 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent} from './app.component';
 import {NgModule} from '@angular/core';
 
+// Maps
+import {AgmCoreModule} from '@agm/core';
+
 // Routing
 import {routing} from './app.route';
 
 // Modules
 import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
 import {BlogComponent} from './blog/blog.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LichtkrantComponent,
-    BlogComponent
+    BlogComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
-    routing
+    routing,
+    AgmCoreModule.forRoot({apiKey:'AIzaSyC1rU1OZBb15A5Y1mn3Pdl-GqQ9YaFjY2o'})
   ],
   providers: [],
   bootstrap: [AppComponent]
