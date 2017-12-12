@@ -5,6 +5,7 @@ import {NgModule} from '@angular/core';
 
 // Maps
 import {AgmCoreModule} from '@agm/core';
+import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
 
 // Routing
 import {routing} from './app.route';
@@ -24,7 +25,8 @@ import { MapComponent } from './map/map.component';
   imports: [
     BrowserModule,
     routing,
-    AgmCoreModule.forRoot({apiKey:'AIzaSyC1rU1OZBb15A5Y1mn3Pdl-GqQ9YaFjY2o'})
+    AgmCoreModule.forRoot({apiKey: 'AIzaSyC1rU1OZBb15A5Y1mn3Pdl-GqQ9YaFjY2o'}),
+    AgmSnazzyInfoWindowModule
   ],
   providers: [],
   bootstrap: [AppComponent]
