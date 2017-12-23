@@ -20,36 +20,54 @@ export class MapComponent implements OnInit {
 
   markers: MyMarker[] = [
     {
-      // Amsterdam 52.376074, 4.906032
-      title: 'Damsko',
+      title: 'Amsterdam',
       lat: 52.376074,
       lng: 4.906032,
-      color: 'Red',
-      draggable: true,
-      isOpen: false
+      isOpen: true
     },
     {
-      // Rotterdam 51.917726, 4.488339
-      title: 'Roffa',
+      title: 'Rotterdan',
       lat: 51.917726,
       lng: 4.488339,
-      color: 'Blue',
-      draggable: false,
       isOpen: false
     },
     {
-      // Tilburg 51.560120, 5.083536
-      title: 'Tilbirg',
+      title: 'Tilburg',
       lat: 51.560120,
       lng: 5.083536,
-      color: 'Green',
-      draggable: true,
+      isOpen: false
+    },
+    {
+      title: 'London',
+      lat: 51.507351,
+      lng: -0.127758,
+      isOpen: false
+    },
+    {
+      title: 'Dubai',
+      lat: 25.204849,
+      lng: 55.270783,
+      isOpen: false
+    },
+    {
+      title: 'Washington DC',
+      lat: 38.907192,
+      lng: -77.036871,
+      isOpen: false
+    },
+    {
+      title: 'Boston',
+      lat: 42.360082,
+      lng: -71.058880,
+      isOpen: false
+    },
+    {
+      title: 'Vancouver',
+      lat: 49.282729,
+      lng: -123.120738,
       isOpen: false
     }
   ];
-
-  openedMarkerIndex: number;
-  openedMarker: MyMarker;
 
   constructor() {
   }
@@ -58,24 +76,48 @@ export class MapComponent implements OnInit {
     this.loopThroughPins(5000);
   }
 
-  loopThroughPins(intervalInMillis: number) {
-    console.log('Starting timer');
-
+  private loopThroughPins(intervalInMillis: number) {
     Observable.interval(intervalInMillis)
       .takeWhile(() => true)
       .subscribe(i => {
-        console.log('Looped ' + i + ' times.');
-        this.openNextPin();
+        let openMarkerIndex = this.getOpenMarker();
+        this.openNextMarker(openMarkerIndex);
+        this.repositionMap(this.getOpenMarker());
       });
   }
 
-  openNextPin() {
-    for (const index in this.markers) {
-      if (typeof this.markers[index] !== 'undefined' && this.markers[index] !== null) {
-        this.markers[index].isOpen = false;
-        console.log(index + ' value ' + JSON.stringify(this.markers[index]));
+  private getOpenMarker() {
+    let openmarkerindex = 0;
+
+    this.markers.forEach((MyMarker, index) => {
+      if (MyMarker.isOpen) {
+        openmarkerindex = index;
       }
+    });
+
+    return openmarkerindex;
+  }
+
+  private openNextMarker(openMarkerIndex: number) {
+    let nextmarkerindex = 0;
+
+    if (openMarkerIndex === this.markers.length - 1) {
+      nextmarkerindex = 0;
+    } else {
+      nextmarkerindex = openMarkerIndex;
+      nextmarkerindex++;
     }
+
+    this.markers[openMarkerIndex].isOpen = false;
+    this.markers[nextmarkerindex].isOpen = true;
+
+    return (this.markers[openMarkerIndex].isOpen == false
+      && this.markers[nextmarkerindex].isOpen == true);
+  }
+
+  private repositionMap(markerIndex: number) {
+    this.centerPositionLat = this.markers[markerIndex].lat;
+    this.centerPositionLng = this.markers[markerIndex].lng;
   }
 }
 
@@ -84,7 +126,5 @@ interface MyMarker {
   title: string;
   lat: number;
   lng: number;
-  color: string;
-  draggable: boolean;
   isOpen: boolean;
 }
