@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/takeWhile';
 
 @Component({
   selector: 'app-map',
@@ -15,52 +18,73 @@ export class MapComponent implements OnInit {
   centerPositionLat = 52.364200;
   centerPositionLng = 5.206241;
 
-  markers: Marker[] = [
+  markers: MyMarker[] = [
     {
       // Amsterdam 52.376074, 4.906032
+      title: 'Damsko',
       lat: 52.376074,
       lng: 4.906032,
       color: 'Red',
-      draggable: true
+      draggable: true,
+      isOpen: false
     },
     {
       // Rotterdam 51.917726, 4.488339
+      title: 'Roffa',
       lat: 51.917726,
       lng: 4.488339,
       color: 'Blue',
-      draggable: false
+      draggable: false,
+      isOpen: false
     },
     {
       // Tilburg 51.560120, 5.083536
+      title: 'Tilbirg',
       lat: 51.560120,
       lng: 5.083536,
       color: 'Green',
-      draggable: true
+      draggable: true,
+      isOpen: false
     }
   ];
 
-  constructor() {
+  openedMarkerIndex: number;
+  openedMarker: MyMarker;
 
+  constructor() {
   }
 
   ngOnInit() {
+    this.loopThroughPins(5000);
   }
 
-  clickedMarker(label: string, index: number) {
-    console.log(`clicked the marker: ${label || index}`);
+  loopThroughPins(intervalInMillis: number) {
+    console.log('Starting timer');
+
+    Observable.interval(intervalInMillis)
+      .takeWhile(() => true)
+      .subscribe(i => {
+        console.log('Looped ' + i + ' times.');
+        this.openNextPin();
+      });
   }
 
-  markerDragEnd(m: Marker, $event: MouseEvent) {
-    console.log('dragEnd', m, $event);
+  openNextPin() {
+    for (const index in this.markers) {
+      if (typeof this.markers[index] !== 'undefined' && this.markers[index] !== null) {
+        this.markers[index].isOpen = false;
+        console.log(index + ' value ' + JSON.stringify(this.markers[index]));
+      }
+    }
   }
-
-
 }
 
 // just an interface for type safety.
-interface Marker {
+interface MyMarker {
+  title: string;
   lat: number;
   lng: number;
   color: string;
   draggable: boolean;
+  isOpen: boolean;
 }

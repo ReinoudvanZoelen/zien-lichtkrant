@@ -1,6 +1,6 @@
 <agm-map [latitude]="centerPositionLat" [longitude]="centerPositionLng" [zoom]="zoom">
-  <agm-marker *ngFor="let m of markers; let i = index" [latitude]=m.lat [longitude]=m.lng [label]=m.label>
-    <agm-snazzy-info-window [maxWidth]=pinPopupWidth [maxHeight]=pinPopupHeight [closeWhenOthersOpen]="true">
+  <agm-marker *ngFor="let m of markers; let i = index" [latitude]=m.lat [longitude]=m.lng [label]=m.label [title]=m.title>
+    <agm-snazzy-info-window [maxWidth]=pinPopupWidth [maxHeight]=pinPopupHeight [isOpen]=[(m.isOpen)]>
       <ng-template>
         <app-map-detailed-info [institutionId]=i>
         </app-map-detailed-info>
