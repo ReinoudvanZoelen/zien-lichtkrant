@@ -21,26 +21,32 @@ export class MapComponent implements OnInit {
   markers: MyMarker[] = [
     {
       title: 'Amsterdam',
-      lat: 52.376074,
-      lng: 4.906032,
+      lat: 52.370216,
+      lng: 4.895168,
       isOpen: true
     },
     {
       title: 'Rotterdan',
-      lat: 51.917726,
-      lng: 4.488339,
+      lat: 51.924420,
+      lng: 4.477733,
       isOpen: false
     },
     {
       title: 'Tilburg',
-      lat: 51.560120,
-      lng: 5.083536,
+      lat: 51.585253,
+      lng: 5.056375,
       isOpen: false
     },
     {
       title: 'London',
       lat: 51.507351,
       lng: -0.127758,
+      isOpen: false
+    },
+    {
+      title: 'Shenzhen',
+      lat: 22.543096,
+      lng: 114.057865,
       isOpen: false
     },
     {
