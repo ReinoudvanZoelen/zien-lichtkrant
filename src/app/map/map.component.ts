@@ -10,7 +10,7 @@ import 'rxjs/add/operator/takeWhile';
 })
 export class MapComponent implements OnInit {
   // Mapsettings
-  zoom = 8;
+  zoom = 3;
   pinPopupHeight = 600;
   pinPopupWidth = 1400;
 
