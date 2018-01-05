@@ -6,15 +6,25 @@ import {NgModule} from '@angular/core';
 // Maps
 import {AgmCoreModule} from '@agm/core';
 import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
-import { MapComponent } from './map/map.component';
-import { MapDetailedInfoComponent } from './map-detailed-info/map-detailed-info.component';
+import {MapComponent} from './map/map.component';
+import {MapMarkerInstitutionComponent} from './map-marker-institution/map-marker-institution.component';
+import {MapMarkerInternshipComponent} from './map-marker-internship/map-marker-internship.component';
 
 // Routing
 import {routing} from './app.route';
 
 // Modules
-import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
 import {BlogComponent} from './blog/blog.component';
+import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
+
+// Dataservice
+import {HttpClientService} from '../services/HttpClientService';
+import {LiveInstitutionService} from '../services/InstitutionService/LiveInstitutionService';
+import {LiveInternshipRouteService} from '../services/InternshipRouteService/LiveInternshipRouteService';
+import {LiveInternshipService} from '../services/InternshipService/LiveInternshipService';
+import {LiveUserService} from '../services/UserService/LiveUserService';
+import {LiveBlogService} from '../services/BlogService/LiveBlogService';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -22,15 +32,22 @@ import {BlogComponent} from './blog/blog.component';
     LichtkrantComponent,
     BlogComponent,
     MapComponent,
-    MapDetailedInfoComponent
+    MapMarkerInstitutionComponent,
+    MapMarkerInternshipComponent
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     routing,
     AgmCoreModule.forRoot({apiKey: 'AIzaSyC1rU1OZBb15A5Y1mn3Pdl-GqQ9YaFjY2o'}),
     AgmSnazzyInfoWindowModule
   ],
-  providers: [],
+  providers: [HttpClientService,
+    LiveBlogService,
+    LiveUserService,
+    LiveInternshipService,
+    LiveInternshipRouteService,
+    LiveInstitutionService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

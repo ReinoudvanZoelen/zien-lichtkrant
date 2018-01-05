@@ -1,19 +1,21 @@
-import { Location } from "models/location";
+import {Location} from './location';
 
 export class Institution {
-  active: boolean;
+  id: number;
+  name: string;
+  street: string;
+  houseNumber: string;
   city: string;
   country: string;
+  zipCode: string;
   email: string;
-  houseNumber: string;
-  id: number;
-  location: Location;
-  name: string;
+  active: boolean;
   phoneNumber: string;
-  street: string;
+  location: Location;
   url: string;
 
-  constructor(active?: boolean, city?: string, country?: string, email?: string, houseNumber?: string, id?: number, location?: Location, name?: string, phoneNumber?: string, street?: string, url?: string) {
+  constructor(active?: boolean, city?: string, country?: string, email?: string, houseNumber?: string, id?: number,
+              location?: Location, name?: string, phoneNumber?: string, street?: string, url?: string, zipCode?: string) {
     this.active = active;
     this.city = city;
     this.country = country;
@@ -25,5 +27,6 @@ export class Institution {
     this.phoneNumber = phoneNumber;
     this.street = street;
     this.url = url;
+    this.zipCode = zipCode;
   }
 }

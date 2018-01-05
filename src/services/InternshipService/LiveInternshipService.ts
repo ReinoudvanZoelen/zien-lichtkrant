@@ -1,35 +1,33 @@
-import { Injectable } from '@angular/core';
-import { host, folder } from 'global';
-import { Response } from '@angular/http';
-import { HttpClientService } from 'services/HttpClientService';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import { Internship } from "models/Internship";
-import { IInternshipService } from 'services/InternshipService/IInternshipService';
-
-
+import {Injectable} from '@angular/core';
+import {IInternshipService} from './IInternshipService';
+import {Internship} from '../../models/internship';
+import {Observable} from 'rxjs/Observable';
+import {folder, host} from '../../../global';
+import {HttpClientService} from '../HttpClientService';
+import 'rxjs/add/observable/from';
 
 @Injectable()
 export class LiveInternshipService implements IInternshipService {
 
-    post(object: Internship) {
-        return this.http.post(this.Url, object)
-    }
-    put(object: Internship) {
-        return this.http.put(this.Url + object)
-    }
-    get(id: number): Observable<Internship> {
-        return Observable.from(this.http.get(this.Url + id).map((res: Response) => res.json()));
-    }
+  post(object: Internship) {
+    return this.http.post(this.Url, object);
+  }
 
-    private Url = host + folder + 'internship/';
+  put(object: Internship) {
+    return this.http.put(this.Url + object);
+  }
 
-    constructor(private http: HttpClientService) {
+  get(id: number): Observable<Internship> {
+    return Observable.from(this.http.get(this.Url + id).map((res) => res.json()));
+  }
 
-    }
+  private Url = host + folder + 'internship/';
 
-    getAll(): Observable<Internship[]> {
-        return Observable.from(this.http.get(this.Url + 'all').map((res: Response) => res.json()));
-    }
+  constructor(private http: HttpClientService) {
+
+  }
+
+  getAll(): Observable<Internship[]> {
+    return Observable.from(this.http.get(this.Url + 'all').map((res) => res.json()));
+  }
 }
