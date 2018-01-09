@@ -17,69 +17,9 @@ export class MapComponent implements OnInit {
   // Mapinstellingen
   zoom = 7;
   pinPopupHeight = 600;
-  pinPopupWidth = 1400;
+  pinPopupWidth = 800;
   centerPositionLat = 52.364200;
   centerPositionLng = 5.206241;
-
-  // region
-  // markers: MyMarker[] = [
-  //   {
-  //     title: 'Amsterdam',
-  //     lat: 52.370216,
-  //     lng: 4.895168,
-  //     isOpen: true
-  //   },
-  //   {
-  //     title: 'Rotterdan',
-  //     lat: 51.924420,
-  //     lng: 4.477733,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Tilburg',
-  //     lat: 51.585253,
-  //     lng: 5.056375,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'London',
-  //     lat: 51.507351,
-  //     lng: -0.127758,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Shenzhen',
-  //     lat: 22.543096,
-  //     lng: 114.057865,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Dubai',
-  //     lat: 25.204849,
-  //     lng: 55.270783,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Washington DC',
-  //     lat: 38.907192,
-  //     lng: -77.036871,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Boston',
-  //     lat: 42.360082,
-  //     lng: -71.058880,
-  //     isOpen: false
-  //   },
-  //   {
-  //     title: 'Vancouver',
-  //     lat: 49.282729,
-  //     lng: -123.120738,
-  //     isOpen: false
-  //   }
-  // ];
-
-  // endregion
 
   markers: MyMarker[] = [];
 
@@ -120,7 +60,7 @@ export class MapComponent implements OnInit {
         this.markers.push(marker);
       }
     });
-    this.loopThroughPins(1000);
+    this.loopThroughPins(8000);
   }
 
   private loopThroughPins(intervalInMillis: number) {
@@ -129,7 +69,7 @@ export class MapComponent implements OnInit {
       .subscribe(i => {
         const openMarkerIndex = this.getOpenMarker();
         this.openNextMarker(openMarkerIndex);
-        this.repositionMap(this.getOpenMarker());
+
       });
   }
 
@@ -155,8 +95,16 @@ export class MapComponent implements OnInit {
       nextmarkerindex++;
     }
 
-    this.markers[openMarkerIndex].isOpen = false;
-    this.markers[nextmarkerindex].isOpen = true;
+    setTimeout(() => {
+      this.markers[openMarkerIndex].isOpen = false;
+    }, 0);
+    setTimeout(() => {
+      this.repositionMap(nextmarkerindex);
+    }, 1000);
+    setTimeout(() => {
+      this.markers[nextmarkerindex].isOpen = true;
+    }, 2000);
+
 
     return (this.markers[openMarkerIndex].isOpen === false
       && this.markers[nextmarkerindex].isOpen === true);
