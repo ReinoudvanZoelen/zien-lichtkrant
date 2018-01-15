@@ -47,7 +47,7 @@ export class MapComponent implements OnInit {
         this.markers.push(marker);
       }
     });
-    this.institutionService.getAll().subscribe(res => {
+    /*this.institutionService.getAll().subscribe(res => {
       this.institutions = res;
       console.log(this.institutions);
 
@@ -64,7 +64,7 @@ export class MapComponent implements OnInit {
 
         this.markers.push(marker);
       }
-    });
+    });*/
     this.loopThroughPins(10000);
   }
 

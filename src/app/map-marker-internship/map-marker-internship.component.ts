@@ -10,7 +10,10 @@ export class MapMarkerInternshipComponent implements OnInit {
 
   @Input() internship: Internship;
 
-  constructor() { }
+  test: String = '<b>test</b>';
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
