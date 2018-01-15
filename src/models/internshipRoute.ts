@@ -4,11 +4,13 @@ export class InternshipRoute {
 
     id: number;
     name: String;
-    institution: Institution
+    institution: Institution;
+    active: boolean;
 
-    constructor(id?: number, name?: String, institution?: Institution) {
+    constructor(name?: String, institution?: Institution, active?: boolean, id?: number) {
         this.id = id;
         this.name = name;
         this.institution = institution;
+        this.active = active;
     }
 }

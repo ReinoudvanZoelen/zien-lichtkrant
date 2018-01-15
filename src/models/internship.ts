@@ -1,49 +1,38 @@
 import {Blog} from './blog';
 import {User} from './user';
 import {Institution} from './institution';
+import { InternshipRoute } from 'models/internshipRoute';
 
 export class Internship {
+
   id: number;
-
-  blog: Blog;
-
   active: boolean;
-  rejected: boolean;
+  semester: number;
+  summary: String;
+  title: String;
 
-  title: string;
-  summary: string;
-  summaryImage: string;
-  content: string;
-  contentImage: string;
-
-  creator: User;
-  date: Date;
   startDate: Date;
   endDate: Date;
 
-  institution: Institution;
-  semester: number;
+  blog: Blog;
+  internshipRoute: InternshipRoute;
   user: User;
+  institution: Institution;
 
+  constructor(id?: number, active?: boolean, semester?: number, summary?: String, title?: String,
+    startDate?: Date, endDate?: Date, blog?: Blog, internshipRoute?: InternshipRoute, user?: User, institution?: Institution) {
+      this.id = id;
+      this.active = active;
+      this.semester = semester;
+      this.summary = summary;
+      this.title = title;
 
-  constructor(id: number, blog: Blog, active: boolean, rejected: boolean, title: string, summary: string,
-              summaryImage: string, content: string, contentImage: string, creator: User,
-              date: Date, startDate: Date, endDate: Date, institution: Institution, semester: number, user: User) {
-    this.id = id;
-    this.blog = blog;
-    this.active = active;
-    this.rejected = rejected;
-    this.title = title;
-    this.summary = summary;
-    this.summaryImage = summaryImage;
-    this.content = content;
-    this.contentImage = contentImage;
-    this.creator = creator;
-    this.date = date;
-    this.startDate = startDate;
-    this.endDate = endDate;
-    this.institution = institution;
-    this.semester = semester;
-    this.user = user;
+      this.startDate = startDate;
+      this.endDate = endDate;
+
+      this.blog = blog;
+      this.internshipRoute = internshipRoute;
+      this.user = user;
+      this.institution = institution;
   }
 }

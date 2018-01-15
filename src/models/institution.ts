@@ -1,21 +1,20 @@
-import {Location} from './location';
+import { Location } from "models/location";
 
 export class Institution {
-  id: number;
-  name: string;
-  street: string;
-  houseNumber: string;
+  active: boolean;
   city: string;
   country: string;
-  zipCode: string;
   email: string;
-  active: boolean;
-  phoneNumber: string;
+  houseNumber: string;
+  id: number;
   location: Location;
+  name: string;
+  phoneNumber: string;
+  street: string;
   url: string;
+  zipCode: string;
 
-  constructor(active?: boolean, city?: string, country?: string, email?: string, houseNumber?: string, id?: number,
-              location?: Location, name?: string, phoneNumber?: string, street?: string, url?: string, zipCode?: string) {
+  constructor(active?: boolean, city?: string, country?: string, email?: string, houseNumber?: string, id?: number, location?: Location, name?: string, phoneNumber?: string, street?: string, url?: string, zipCode?: string) {
     this.active = active;
     this.city = city;
     this.country = country;
