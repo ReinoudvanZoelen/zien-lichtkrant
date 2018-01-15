@@ -4,6 +4,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Internship} from '../../models/internship';
 import {Institution} from '../../models/institution';
+import {Location} from '../../models/location';
 
 import {LiveInternshipService} from '../../services/InternshipService/LiveInternshipService';
 import {LiveInstitutionService} from '../../services/InstitutionService/LiveInstitutionService';
@@ -37,7 +38,9 @@ export class MapComponent implements OnInit {
       console.log('Found ' + this.internships.length + ' internships.');
       for (const entry of this.internships) {
         const marker: MyMarker = {
-          content: entry,
+          internship: entry,
+          institution: entry.institution,
+          location: entry.institution.location,
           isInternship: true,
           isOpen: false
         };
@@ -47,20 +50,22 @@ export class MapComponent implements OnInit {
     this.institutionService.getAll().subscribe(res => {
       this.institutions = res;
       console.log(this.institutions);
+
       console.log('Found ' + this.institutions.length + ' institutions.');
+
       for (const entry of this.institutions) {
-        const internship: Internship = new Internship(null, null, null, null, null, null,
-          null, null, null, null, null, null, null,
-          entry, null, null);
         const marker: MyMarker = {
-          content: internship,
+          internship: null,
+          institution: entry,
+          location: entry.location,
           isInternship: false,
           isOpen: false
         };
+
         this.markers.push(marker);
       }
     });
-    this.loopThroughPins(8000);
+    this.loopThroughPins(10000);
   }
 
   private loopThroughPins(intervalInMillis: number) {
@@ -68,8 +73,7 @@ export class MapComponent implements OnInit {
       .takeWhile(() => true)
       .subscribe(i => {
         const openMarkerIndex = this.getOpenMarker();
-        this.openNextMarker(openMarkerIndex);
-
+        this.openNextMarker(openMarkerIndex, false);
       });
   }
 
@@ -85,7 +89,7 @@ export class MapComponent implements OnInit {
     return openmarkerindex;
   }
 
-  private openNextMarker(openMarkerIndex: number) {
+  private openNextMarker(openMarkerIndex: number, transition: boolean) {
     let nextmarkerindex = 0;
 
     if (openMarkerIndex === this.markers.length - 1) {
@@ -95,15 +99,22 @@ export class MapComponent implements OnInit {
       nextmarkerindex++;
     }
 
-    setTimeout(() => {
+
+    if (transition) {
+      setTimeout(() => {
+        this.markers[openMarkerIndex].isOpen = false;
+      }, 0);
+      setTimeout(() => {
+        this.repositionMap(nextmarkerindex);
+      }, 1000);
+      setTimeout(() => {
+        this.markers[nextmarkerindex].isOpen = true;
+      }, 2000);
+    } else {
       this.markers[openMarkerIndex].isOpen = false;
-    }, 0);
-    setTimeout(() => {
       this.repositionMap(nextmarkerindex);
-    }, 1000);
-    setTimeout(() => {
       this.markers[nextmarkerindex].isOpen = true;
-    }, 2000);
+    }
 
 
     return (this.markers[openMarkerIndex].isOpen === false
@@ -111,14 +122,16 @@ export class MapComponent implements OnInit {
   }
 
   private repositionMap(markerIndex: number) {
-    this.centerPositionLat = this.markers[markerIndex].content.institution.location.latitude;
-    this.centerPositionLng = this.markers[markerIndex].content.institution.location.longitude;
+    this.centerPositionLat = this.markers[markerIndex].location.latitude;
+    this.centerPositionLng = this.markers[markerIndex].location.longitude;
   }
 }
 
 // just an interface for type safety.
 interface MyMarker {
-  content: Internship;
+  internship: Internship;
+  institution: Institution;
+  location: Location;
   isInternship: boolean;
   isOpen: boolean;
 }

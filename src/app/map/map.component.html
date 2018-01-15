@@ -1,26 +1,24 @@
 <agm-map [latitude]=centerPositionLat [longitude]=centerPositionLng [zoom]=zoom>
   <div *ngFor="let m of markers">
     <div *ngIf="m.isInternship"> <!--Use m.content-->
-      <agm-marker [latitude]="m.content.institution.location.latitude"
-                  [longitude]="m.content.institution.location.longitude"
-                  [title]="m.content.title">
+      <agm-marker [latitude]="m.location.latitude"
+                  [longitude]="m.location.longitude">
         <agm-snazzy-info-window [maxWidth]=pinPopupWidth [maxHeight]=pinPopupHeight [isOpen]=m.isOpen>
           <ng-template>
-            <h1>{{m.content.title || "Title"}}</h1>
-            <app-map-marker-internship [internship]=m.content>
+            <app-map-marker-internship [internship]=m.internship>
             </app-map-marker-internship>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>
     </div>
 
-    <div *ngIf="!m.isInternship"> <!--Only use m.content.institution-->
-      <agm-marker [latitude]="m.content.institution.location.latitude"
-                  [longitude]="m.content.institution.location.longitude"
-                  [title]="m.content.institution.name">
+    <div *ngIf="!m.isInternship"> <!--Use m.institution-->
+      <agm-marker [latitude]="m.location.latitude"
+                  [longitude]="m.location.longitude">
         <agm-snazzy-info-window [maxWidth]=pinPopupWidth [maxHeight]=pinPopupHeight [isOpen]=m.isOpen>
           <ng-template>
-            <app-map-marker-institution [institution]=m.content.institution></app-map-marker-institution>
+            <app-map-marker-institution [institution]=m.institution>
+            </app-map-marker-institution>
           </ng-template>
         </agm-snazzy-info-window>
       </agm-marker>

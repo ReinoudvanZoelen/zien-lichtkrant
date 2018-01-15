@@ -17,6 +17,9 @@ import {routing} from './app.route';
 import {BlogComponent} from './blog/blog.component';
 import {LichtkrantComponent} from './lichtkrant/lichtkrant.component';
 
+// QR
+import {QRCodeModule} from 'angular2-qrcode';
+
 // Dataservice
 import {HttpClientService} from '../services/HttpClientService';
 import {LiveInstitutionService} from '../services/InstitutionService/LiveInstitutionService';
@@ -36,6 +39,7 @@ import {HttpModule} from '@angular/http';
     MapMarkerInternshipComponent
   ],
   imports: [
+    QRCodeModule,
     BrowserModule,
     HttpModule,
     routing,

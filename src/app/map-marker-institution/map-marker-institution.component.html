@@ -1,12 +1,25 @@
-<div class="container">
+<div class="container fullsize">
   <h1>{{this.institution.name}}</h1>
   <div class="container">
     <div class="row">
       <div class="col">
-        {{this.institution.email}}
+        <h3>Adres</h3>
+        <p>
+          {{this.institution.street}} {{this.institution.houseNumber}}
+          {{this.institution.zipCode}}
+          {{this.institution.city}}
+        </p>
+        <h3>Email</h3>
+        <p>
+          {{this.institution.email || "Geen email gevonden"}}
+        </p>
       </div>
       <div class="col">
-        TODO: QR CODE
+        <div>
+          <qr-code [value]=this.institution.url
+                   [size]="120">
+          </qr-code>
+        </div>
       </div>
     </div>
   </div>
