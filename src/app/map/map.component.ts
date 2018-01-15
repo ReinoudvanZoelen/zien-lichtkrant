@@ -17,8 +17,8 @@ import {LiveInstitutionService} from '../../services/InstitutionService/LiveInst
 export class MapComponent implements OnInit {
   // Mapinstellingen
   zoom = 7;
-  pinPopupHeight = 600;
-  pinPopupWidth = 800;
+  pinPopupHeight = 800;
+  pinPopupWidth = 1200;
   centerPositionLat = 52.364200;
   centerPositionLng = 5.206241;
 
@@ -32,12 +32,13 @@ export class MapComponent implements OnInit {
   }
 
   ngOnInit() {
+    /**/
     this.internshipService.getAll().subscribe(res => {
       this.internships = res;
       console.log(this.internships);
       console.log('Found ' + this.internships.length + ' internships.');
       for (const entry of this.internships) {
-        const marker: MyMarker = {
+        const marker: MyMarker = <MyMarker>{
           internship: entry,
           institution: entry.institution,
           location: entry.institution.location,
@@ -47,14 +48,17 @@ export class MapComponent implements OnInit {
         this.markers.push(marker);
       }
     });
-    /*this.institutionService.getAll().subscribe(res => {
+    /**/
+
+    /*
+    this.institutionService.getAll().subscribe(res => {
       this.institutions = res;
       console.log(this.institutions);
 
       console.log('Found ' + this.institutions.length + ' institutions.');
 
       for (const entry of this.institutions) {
-        const marker: MyMarker = {
+        const marker: MyMarker = <MyMarker>{
           internship: null,
           institution: entry,
           location: entry.location,
@@ -64,8 +68,10 @@ export class MapComponent implements OnInit {
 
         this.markers.push(marker);
       }
-    });*/
-    this.loopThroughPins(10000);
+    });
+    /**/
+
+    this.loopThroughPins(5000);
   }
 
   private loopThroughPins(intervalInMillis: number) {
