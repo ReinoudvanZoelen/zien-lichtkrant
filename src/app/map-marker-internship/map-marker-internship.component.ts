@@ -10,12 +10,13 @@ export class MapMarkerInternshipComponent implements OnInit {
 
   @Input() internship: Internship;
 
-  test: String = '<b>test</b>';
+  qrurl: String;
 
   constructor() {
   }
 
   ngOnInit() {
+    this.qrurl = 'https://www.fontys-project.nl:8080/zien-forum/blog/' + this.internship.blog.id;
   }
 
 }

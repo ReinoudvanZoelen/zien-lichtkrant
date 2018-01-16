@@ -10,10 +10,13 @@ export class MapMarkerInstitutionComponent implements OnInit {
 
   @Input() institution: Institution;
 
+  qrurl: String;
+
   constructor() {
   }
 
   ngOnInit() {
+    this.qrurl = 'https://www.fontys-project.nl:8080/zien-forum/institution/' + this.institution.id;
   }
 
 }
