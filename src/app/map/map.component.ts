@@ -50,7 +50,7 @@ export class MapComponent implements OnInit {
     });
     /**/
 
-    /*
+    /**/
     this.institutionService.getAll().subscribe(res => {
       this.institutions = res;
       console.log(this.institutions);

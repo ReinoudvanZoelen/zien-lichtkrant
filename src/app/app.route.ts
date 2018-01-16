@@ -5,7 +5,7 @@ import {MapComponent} from './map/map.component';
 
 const APP_ROUTES: Routes = [
   {path: '', component: LichtkrantComponent},
-  {path: 'blog', component: BlogComponent},
+  {path: 'blog/:id', component: BlogComponent},
   {path: 'map', component: MapComponent}
 ];
 
