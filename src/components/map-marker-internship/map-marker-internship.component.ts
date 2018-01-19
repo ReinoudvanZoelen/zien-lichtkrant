@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
 import {Internship} from '../../models/internship';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-map-marker-internship',
