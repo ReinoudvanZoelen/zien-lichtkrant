@@ -1,13 +1,19 @@
 import {Injectable} from '@angular/core';
-import {IInstitutionService} from './IInstitutionService';
 import {Institution} from '../../models/institution';
 import {Observable} from 'rxjs/Observable';
 import {HttpClientService} from '../HttpClientService';
 import {folder, host} from '../../../global';
 import 'rxjs/add/observable/from';
+import {IGenericService} from '../IGenericService';
 
 @Injectable()
-export class LiveInstitutionService implements IInstitutionService {
+export class LiveInstitutionService implements IGenericService<Institution> {
+
+  private Url = host + folder + 'institution/';
+
+  constructor(private http: HttpClientService) {
+
+  }
 
   post(object: Institution) {
     return this.http.post(this.Url, object);
@@ -19,12 +25,6 @@ export class LiveInstitutionService implements IInstitutionService {
 
   get(id: number): Observable<Institution> {
     return Observable.from(this.http.get(this.Url + id).map((res) => res.json()));
-  }
-
-  private Url = host + folder + 'institution/';
-
-  constructor(private http: HttpClientService) {
-
   }
 
   getAll(): Observable<Institution[]> {

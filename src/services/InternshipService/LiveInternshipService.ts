@@ -1,13 +1,19 @@
 import {Injectable} from '@angular/core';
-import {IInternshipService} from './IInternshipService';
 import {Internship} from '../../models/internship';
 import {Observable} from 'rxjs/Observable';
 import {folder, host} from '../../../global';
 import {HttpClientService} from '../HttpClientService';
 import 'rxjs/add/observable/from';
+import {IGenericService} from '../IGenericService';
 
 @Injectable()
-export class LiveInternshipService implements IInternshipService {
+export class LiveInternshipService implements IGenericService<Internship> {
+
+  private Url = host + folder + 'internship/';
+
+  constructor(private http: HttpClientService) {
+
+  }
 
   post(object: Internship) {
     return this.http.post(this.Url, object);
@@ -19,12 +25,6 @@ export class LiveInternshipService implements IInternshipService {
 
   get(id: number): Observable<Internship> {
     return Observable.from(this.http.get(this.Url + id).map((res) => res.json()));
-  }
-
-  private Url = host + folder + 'internship/';
-
-  constructor(private http: HttpClientService) {
-
   }
 
   getAll(): Observable<Internship[]> {

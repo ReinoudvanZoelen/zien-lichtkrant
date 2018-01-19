@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
-import {IInternshipRouteService} from './IInternshipRouteService';
 import {folder, host} from '../../../global';
 import {HttpClientService} from '../HttpClientService';
 import {InternshipRoute} from '../../models/internshipRoute';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+import {IGenericService} from '../IGenericService';
 
 
 @Injectable()
-export class LiveInternshipRouteService implements IInternshipRouteService {
+export class LiveInternshipRouteService implements IGenericService<InternshipRoute> {
 
   private Url = host + folder + 'internshipRoute/';
 
   constructor(private http: HttpClientService) {
-
   }
 
   post(object: InternshipRoute) {
