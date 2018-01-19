@@ -6,8 +6,8 @@ import {Location} from '../../models/location';
 import {LiveInternshipService} from '../../services/InternshipService/LiveInternshipService';
 import {LiveInstitutionService} from '../../services/InstitutionService/LiveInstitutionService';
 import {GMapsService} from '../../services/GMapsService';
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-map',
@@ -60,9 +60,9 @@ export class MapComponent implements OnInit {
               result => {
                 marker.location.latitude = result.lat();
                 marker.location.longitude = result.lng();
-              });
 
-          this.markers.push(marker);
+                this.markers.push(marker);
+              });
         }
       });
     }
@@ -89,9 +89,9 @@ export class MapComponent implements OnInit {
               result => {
                 marker.location.latitude = result.lat();
                 marker.location.longitude = result.lng();
-              });
 
-          this.markers.push(marker);
+                this.markers.push(marker);
+              });
         }
       });
     }
