@@ -6,10 +6,10 @@ import {routing} from './app.route';
 // Maps
 import {AgmCoreModule} from '@agm/core';
 import {AgmSnazzyInfoWindowModule} from '@agm/snazzy-info-window';
-import {MapComponent} from './map/map.component';
+import {MapComponent} from '../components/map/map.component';
 import {GMapsService} from '../services/GMapsService';
-import {MapMarkerInstitutionComponent} from './map-marker-institution/map-marker-institution.component';
-import {MapMarkerInternshipComponent} from './map-marker-internship/map-marker-internship.component';
+import {MapMarkerInstitutionComponent} from '../components/map-marker-institution/map-marker-institution.component';
+import {MapMarkerInternshipComponent} from '../components/map-marker-internship/map-marker-internship.component';
 // QR
 import {QRCodeModule} from 'angular2-qrcode';
 // Dataservice
