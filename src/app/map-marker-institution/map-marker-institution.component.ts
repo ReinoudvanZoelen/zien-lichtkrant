@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
 import {Institution} from '../../models/institution';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-map-marker-institution',

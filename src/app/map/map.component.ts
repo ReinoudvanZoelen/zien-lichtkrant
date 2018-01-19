@@ -1,13 +1,13 @@
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/takeWhile';
-import {Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
 import {Internship} from '../../models/internship';
 import {Institution} from '../../models/institution';
 import {Location} from '../../models/location';
 import {LiveInternshipService} from '../../services/InternshipService/LiveInternshipService';
 import {LiveInstitutionService} from '../../services/InstitutionService/LiveInstitutionService';
 import {GMapsService} from '../../services/GMapsService';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-map',
