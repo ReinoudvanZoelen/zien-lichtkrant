@@ -5,9 +5,9 @@ import {Observable} from 'rxjs/Observable';
 import {Internship} from '../../models/internship';
 import {Institution} from '../../models/institution';
 import {Location} from '../../models/location';
-
 import {LiveInternshipService} from '../../services/InternshipService/LiveInternshipService';
 import {LiveInstitutionService} from '../../services/InstitutionService/LiveInstitutionService';
+import {GMapsService} from '../../services/GMapsService';
 
 @Component({
   selector: 'app-map',
@@ -24,54 +24,77 @@ export class MapComponent implements OnInit {
 
   markers: MyMarker[] = [];
 
-  internships: Internship[] = [];
-  institutions: Institution[] = [];
-
   constructor(private internshipService: LiveInternshipService,
-              private institutionService: LiveInstitutionService) {
+              private institutionService: LiveInstitutionService,
+              private mapsService: GMapsService) {
   }
 
   ngOnInit() {
-    /**/
-    this.internshipService.getAll().subscribe(res => {
-      this.internships = res;
-      console.log(this.internships);
-      console.log('Found ' + this.internships.length + ' internships.');
-      for (const entry of this.internships) {
-        const marker: MyMarker = <MyMarker>{
-          internship: entry,
-          institution: entry.institution,
-          location: entry.institution.location,
-          isInternship: true,
-          isOpen: false
-        };
-        this.markers.push(marker);
-      }
-    });
-    /**/
-
-    /**/
-    this.institutionService.getAll().subscribe(res => {
-      this.institutions = res;
-      console.log(this.institutions);
-
-      console.log('Found ' + this.institutions.length + ' institutions.');
-
-      for (const entry of this.institutions) {
-        const marker: MyMarker = <MyMarker>{
-          internship: null,
-          institution: entry,
-          location: entry.location,
-          isInternship: false,
-          isOpen: false
-        };
-
-        this.markers.push(marker);
-      }
-    });
-    /**/
+    this.fetchMarkers(true, true);
 
     this.loopThroughPins(5000);
+  }
+
+  private fetchMarkers(loadInternships: boolean, loadInstitutions: boolean) {
+    // Empty the array
+    // Source: https://stackoverflow.com/questions/29803045/how-to-clear-an-angular-array
+    this.markers.length = 0;
+
+    if (loadInternships) {
+      this.internshipService.getAll().subscribe(res => {
+        for (const entry of res) {
+          console.log(entry);
+          const marker: MyMarker = <MyMarker>{
+            internship: entry,
+            institution: entry.institution,
+            location: entry.institution.location,
+            isInternship: true,
+            isOpen: false
+          };
+
+          const address = entry.institution.street + ' ' + entry.institution.houseNumber + ', ' +
+            entry.institution.zipCode + ' ' + entry.institution.city;
+
+          this.mapsService.getLatLan(address)
+            .subscribe(
+              result => {
+                marker.location.latitude = result.lat();
+                marker.location.longitude = result.lng();
+              });
+
+          this.markers.push(marker);
+        }
+      });
+    }
+
+    if (loadInstitutions) {
+      this.institutionService.getAll().subscribe(res => {
+        for (const entry of res) {
+          console.log(entry);
+          const marker: MyMarker = <MyMarker>{
+            internship: null,
+            institution: entry,
+            location: entry.location,
+            isInternship: false,
+            isOpen: false
+          };
+
+          const address = entry.street + ' ' + entry.houseNumber + ', ' +
+            entry.zipCode + ' ' + entry.city;
+
+          console.log(address);
+
+          this.mapsService.getLatLan(address)
+            .subscribe(
+              result => {
+                marker.location.latitude = result.lat();
+                marker.location.longitude = result.lng();
+              });
+
+          this.markers.push(marker);
+        }
+      });
+    }
   }
 
   private loopThroughPins(intervalInMillis: number) {
