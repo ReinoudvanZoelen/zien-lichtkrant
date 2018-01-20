@@ -14,27 +14,31 @@
             <h3>Student {{internship.user.study}}</h3>
             <br>
             <!--https://angular.io/api/common/DatePipe#!#sts=Pipe-->
-            <h4>{{internship.startDate | date: 'MMMM yyyy'}} - {{internship.endDate | date: 'MMMM yyyy'}}</h4>
+            <h5>{{internship.startDate | date: 'MMMM yyyy'}} - {{internship.endDate | date: 'MMMM yyyy'}}</h5>
           </div>
         </div>
         <!--Divider line?-->
+        <hr>
         <!--Stagebedrijf-->
         <div class="row align-items-center">
           <div class="col">
-            <h3>
+            <h4>
               {{internship.institution.name}}
-
+            </h4>
+            <h5>
               {{internship.institution.street}} {{internship.institution.houseNumber}}
-
+              <br>
               {{internship.institution.zipCode}} {{internship.institution.city}}
-            </h3>
+            </h5>
           </div>
         </div>
         <!--Divider line?-->
         <!--QR Code-->
-        <div class="row align-items-end">
-          <div class="col">
-            Wil je weten of deze stage ook iets voor jou is? Scan de QR code en kom er achter!
+        <div class="row">
+          <div class="col-6">
+            Wil je weten of deze stage ook iets voor jou is? Scan de QR code om de hele blog te lezen!
+          </div>
+          <div class="col-6">
             <qr-code [value]=qrurl>
             </qr-code>
           </div>

@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.fetchMarkers(true, true);
 
-    this.loopThroughPins(5000);
+    this.loopThroughPins(10000);
   }
 
   private fetchMarkers(loadInternships: boolean, loadInstitutions: boolean) {
@@ -42,67 +42,72 @@ export class MapComponent implements OnInit {
 
     if (loadInternships) {
       this.internshipService.getAll().subscribe(res => {
-        for (const entry of res) {
-          console.log(entry);
-          const marker: MyMarker = <MyMarker>{
-            internship: entry,
-            institution: entry.institution,
-            location: entry.institution.location,
-            isInternship: true,
-            isOpen: false
-          };
+          for (const entry of res) {
+            const marker: MyMarker = <MyMarker>{
+              internship: entry,
+              institution: entry.institution,
+              location: entry.institution.location,
+              isInternship: true,
+              isOpen: false
+            };
 
-          const address = entry.institution.street + ' ' + entry.institution.houseNumber + ', ' +
-            entry.institution.zipCode + ' ' + entry.institution.city;
+            const address = entry.institution.street + ' ' + entry.institution.houseNumber + ', ' +
+              entry.institution.zipCode + ' ' + entry.institution.city;
 
-          this.mapsService.getLatLan(address)
-            .subscribe(
+            this.mapsService.getLatLan(address).subscribe(
               result => {
                 marker.location.latitude = result.lat();
                 marker.location.longitude = result.lng();
 
                 this.markers.push(marker);
-              });
-        }
-      });
+              }
+            );
+          }
+        }, error => console.log(error),
+        () => {
+          console.log('Done fetching internships, they have been added to MyMarkers');
+        });
     }
 
     if (loadInstitutions) {
       this.institutionService.getAll().subscribe(res => {
-        for (const entry of res) {
-          console.log(entry);
-          const marker: MyMarker = <MyMarker>{
-            internship: null,
-            institution: entry,
-            location: entry.location,
-            isInternship: false,
-            isOpen: false
-          };
+          for (const entry of res) {
+            const marker: MyMarker = <MyMarker>{
+              internship: null,
+              institution: entry,
+              location: entry.location,
+              isInternship: false,
+              isOpen: false
+            };
 
-          const address = entry.street + ' ' + entry.houseNumber + ', ' +
-            entry.zipCode + ' ' + entry.city;
+            const address = entry.street + ' ' + entry.houseNumber + ', ' +
+              entry.zipCode + ' ' + entry.city;
 
-          console.log(address);
+            this.mapsService.getLatLan(address)
+              .subscribe(
+                result => {
+                  marker.location.latitude = result.lat();
+                  marker.location.longitude = result.lng();
 
-          this.mapsService.getLatLan(address)
-            .subscribe(
-              result => {
-                marker.location.latitude = result.lat();
-                marker.location.longitude = result.lng();
-
-                this.markers.push(marker);
-              });
-        }
-      });
+                  this.markers.push(marker);
+                });
+          }
+        }, error => console.log(error),
+        () => {
+          console.log('Done fetching institutions, they have been added to MyMarkers');
+        });
     }
+
   }
 
   private loopThroughPins(intervalInMillis: number) {
     Observable.interval(intervalInMillis)
       .takeWhile(() => true)
       .subscribe(i => {
-        const openMarkerIndex = this.getOpenMarker();
-        this.openNextMarker(openMarkerIndex, false);
+        if (this.markers.length > 0){
+          const openMarkerIndex = this.getOpenMarker();
+          this.openNextMarker(openMarkerIndex, true);
+        }
       });
   }
 
