@@ -1,4 +1,4 @@
-import { Institution } from "models/institution";
+import { Institution } from './institution';
 
 export class InternshipRoute {
 

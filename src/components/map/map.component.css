@@ -3,10 +3,6 @@ html, body {
   margin: 0;
 }
 
-.map-canvas {
-  height: 100%;
-}
-
 agm-map {
   height: 100vh;
 }

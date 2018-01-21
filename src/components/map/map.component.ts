@@ -103,8 +103,8 @@ export class MapComponent implements OnInit {
   private loopThroughPins(intervalInMillis: number) {
     Observable.interval(intervalInMillis)
       .takeWhile(() => true)
-      .subscribe(i => {
-        if (this.markers.length > 0){
+      .subscribe(() => {
+        if (this.markers.length > 0) {
           const openMarkerIndex = this.getOpenMarker();
           this.openNextMarker(openMarkerIndex, true);
         }
