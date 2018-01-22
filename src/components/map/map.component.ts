@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.fetchMarkers(true, true);
 
-    this.loopThroughPins(10000);
+    this.loopThroughPins(5000);
   }
 
   private fetchMarkers(loadInternships: boolean, loadInstitutions: boolean) {
@@ -43,25 +43,27 @@ export class MapComponent implements OnInit {
     if (loadInternships) {
       this.internshipService.getAll().subscribe(res => {
           for (const entry of res) {
-            const marker: MyMarker = <MyMarker>{
-              internship: entry,
-              institution: entry.institution,
-              location: entry.institution.location,
-              isInternship: true,
-              isOpen: false
-            };
+            if (entry.blog.accepted) {
+              const marker: MyMarker = <MyMarker>{
+                internship: entry,
+                institution: entry.institution,
+                location: entry.institution.location,
+                isInternship: true,
+                isOpen: false
+              };
 
-            const address = entry.institution.street + ' ' + entry.institution.houseNumber + ', ' +
-              entry.institution.zipCode + ' ' + entry.institution.city;
+              const address = entry.institution.street + ' ' + entry.institution.houseNumber + ', ' +
+                entry.institution.zipCode + ' ' + entry.institution.city;
 
-            this.mapsService.getLatLan(address).subscribe(
-              result => {
-                marker.location.latitude = result.lat();
-                marker.location.longitude = result.lng();
+              this.mapsService.getLatLan(address).subscribe(
+                result => {
+                  marker.location.latitude = result.lat();
+                  marker.location.longitude = result.lng();
 
-                this.markers.push(marker);
-              }
-            );
+                  this.markers.push(marker);
+                }
+              );
+            }
           }
         }, error => console.log(error),
         () => {
@@ -148,6 +150,12 @@ export class MapComponent implements OnInit {
       this.markers[openMarkerIndex].isOpen = false;
       this.repositionMap(nextmarkerindex);
       this.markers[nextmarkerindex].isOpen = true;
+    }
+
+    if ((openMarkerIndex + 1) === this.markers.length) {
+      setTimeout(() => {
+        this.fetchMarkers(true, true);
+      }, 3000);
     }
 
 
