@@ -16,7 +16,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class MapComponent implements OnInit {
   // Mapinstellingen
-  zoom = 7;
+  zoom = 6;
   pinPopupHeight = 800;
   pinPopupWidth = 1200;
   centerPositionLat = 52.364200;
@@ -32,7 +32,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.fetchMarkers(true, true);
 
-    this.loopThroughPins(5000);
+    this.loopThroughPins(12000);
   }
 
   private fetchMarkers(loadInternships: boolean, loadInstitutions: boolean) {
@@ -155,7 +155,7 @@ export class MapComponent implements OnInit {
     if ((openMarkerIndex + 1) === this.markers.length) {
       setTimeout(() => {
         this.fetchMarkers(true, true);
-      }, 3000);
+      }, 10000);
     }
 
 
