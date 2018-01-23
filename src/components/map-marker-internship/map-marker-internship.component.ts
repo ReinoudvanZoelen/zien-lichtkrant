@@ -16,7 +16,7 @@ export class MapMarkerInternshipComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.qrurl = 'http://www.fontys-project.nl:8080/zien-forum/#/detail-page/' + this.internship.blog.id;
+    this.qrurl = 'http://www.fontys-project.nl:8080/zien-forum/#/detail/' + this.internship.blog.id;
   }
 
 }
